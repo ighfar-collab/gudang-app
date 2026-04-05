@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-     Schema::create('cash_flows', function (Blueprint $table) {
+       Schema::create('stoks', function (Blueprint $table) {
     $table->id();
-    $table->date('tanggal');
-    $table->enum('jenis', ['masuk','keluar']);
-    $table->decimal('nominal',12,2);
-    $table->string('sumber'); // penjualan, pembelian, hutang, dll
-    $table->unsignedBigInteger('ref_id')->nullable();
-    $table->text('keterangan')->nullable();
+    $table->foreignId('barang_id')->constrained()->cascadeOnDelete();
+    $table->foreignId('gudang_id')->constrained()->cascadeOnDelete();
+    $table->integer('jumlah')->default(0);
     $table->timestamps();
 });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cash_flows');
+        Schema::dropIfExists('stoks');
     }
 };
