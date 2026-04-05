@@ -1,0 +1,99 @@
+body {
+    background: #4b5563;
+    color: #fff;
+}
+
+.pos-container {
+    display: flex;
+    gap: 20px;
+}
+
+.pos-left {
+    flex: 3;
+}
+
+.pos-right {
+    flex: 1.3;
+}
+
+.card {
+    background: #1f2933;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 10px;
+    font-weight: bold;
+}
+
+.card-header.blue { background: #2563eb; }
+.card-header.green { background: #059669; }
+.card-header.gray { background: #6b7280; }
+
+.card-body {
+    padding: 15px;
+}
+
+.scan-box {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.scan-box input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 4px 0 0 4px;
+    border: none;
+}
+
+.scan-box button {
+    padding: 8px 15px;
+    background: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 0 4px 4px 0;
+}
+
+.table-pos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table-pos th,
+.table-pos td {
+    border: 1px solid #374151;
+    padding: 8px;
+    text-align: center;
+}
+
+.table-pos th {
+    background: #111827;
+}
+
+.summary p {
+    margin: 10px 0;
+}
+
+.btn-method {
+    background: #374151;
+    color: #fff;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.btn-method.active {
+    background: #2563eb;
+}
+
+.btn-finish {
+    background: #10b981;
+    color: #fff;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    font-size: 16px;
+}
