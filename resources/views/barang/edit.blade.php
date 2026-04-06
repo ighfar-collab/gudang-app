@@ -1,0 +1,49 @@
+@extends('layouts.admin.main')
+
+@section('title','Edit Barang')
+
+@section('content')
+<div class="container-fluid">
+
+    <div class="card col-md-6">
+        <div class="card-body">
+
+            <h4>Edit Barang</h4>
+
+            <form action="{{ route('barang.update', $barang->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <!-- Kode Barang -->
+                <div class="mb-3">
+                    <label>Kode Barang</label>
+                    <input type="text" name="kode_barang" value="{{ $barang->kode_barang }}" class="form-control">
+                </div>
+
+                <!-- Nama Barang -->
+                <div class="mb-3">
+                    <label>Nama Barang</label>
+                    <input type="text" name="nama_barang" value="{{ $barang->nama_barang }}" class="form-control">
+                </div>
+
+                <!-- Stok -->
+                <div class="mb-3">
+                    <label>Stok</label>
+                    <input type="number" name="stok" value="{{ $barang->stok }}" class="form-control">
+                </div>
+
+                <!-- Stok Minimum -->
+                <div class="mb-3">
+                    <label>Stok Minimum</label>
+                    <input type="number" name="stok_minimum" value="{{ $barang->stok_minimum }}" class="form-control">
+                </div>
+
+                <button class="btn btn-success">Update</button>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+@endsection

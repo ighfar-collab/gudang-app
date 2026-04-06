@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +41,30 @@ Route::middleware('auth')->group(function () {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+    Route::resource('barang', BarangController::class);
+    Route::post('users/{user}/reset-password',
+    [UserController::class,'resetPassword']
+)->name('admin.users.reset-password');
+
+   Route::put('/user/{user}/make-admin', [UserController::class, 'makeAdmin'])
+        ->name('user.makeAdmin');
+Route::get('user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('user.update');
+
+      Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+    Route::delete('/user/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
+ Route::post('/users/{id}/role', [UserController::class, 'updateRole'])->name('user.updateRole');
+  Route::put('/users/{user}/reset-password',
+    [UserController::class, 'resetPassword'])->name('user.resetPassword');
+     Route::get('/user/{id}/reset', [UserController::class, 'reset'])->name('user.reset');
+     
    
-    Route::middleware('auth','role:user')->group(function () {
-    
-    });
+});
+
 
 
 require __DIR__.'/auth.php';

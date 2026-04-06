@@ -3,48 +3,37 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Barang;
+use App\Models\Mutasi;
 use Carbon\Carbon;
-use App\Models\Transaction;
-use App\Models\Pembelian;
-use App\Models\Installment;
-use App\Models\Loan;
 
 class DashboardController extends Controller
 {
     public function index()
     {
+        $totalBarang = Barang::count();
 
-        // Cash In
-        $penjualan = Transaction::sum('total');
+        $stokMasukHariIni = Mutasi::where('tipe', 'masuk')
+            ->whereDate('tanggal', Carbon::today())
+            ->sum('jumlah');
 
-        $bayarPiutang = Installment::whereHas('loan', function($q){
-            $q->where('jenis','piutang');
-        })->sum('bayar');
+        $stokKeluarHariIni = Mutasi::where('tipe', 'keluar')
+            ->whereDate('tanggal', Carbon::today())
+            ->sum('jumlah');
 
-        $cashIn = $penjualan + $bayarPiutang;
+        $stokMenipis = Barang::where('stok_minimum', '<', 10)->count();
 
-    $totalTransaksi = Transaction::count();
-    $totalPembelian = Pembelian::count();
-        // Cash Out
-        $pembelian = Pembelian::sum('total');
+        $barangTerbaru = Barang::latest()->take(5)->get();
 
-        $bayarUtang = Installment::whereHas('loan', function($q){
-            $q->where('jenis','utang');
-        })->sum('bayar');
-
-        $cashOut = $pembelian + $bayarUtang;
-
-
-        // Cash Flow
-        $cashFlow = $cashIn - $cashOut;
+        $barangHampirHabis = Barang::where('stok_minimum', '<', 10)->get();
 
         return view('dashboard', compact(
-            'cashIn',
-            'cashOut',
-            'cashFlow',
-               'totalTransaksi',
-        'totalPembelian'
+            'totalBarang',
+            'stokMasukHariIni',
+            'stokKeluarHariIni',
+            'stokMenipis',
+            'barangTerbaru',
+            'barangHampirHabis'
         ));
     }
 }

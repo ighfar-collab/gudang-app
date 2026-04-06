@@ -45,10 +45,10 @@ class UserController extends Controller
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'role' => 'kasir',
+        'role' => 'super-admin',
     ]);
 
-    $user->assignRole('driver');
+    $user->assignRole('super-admin');
       
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan!');
 }

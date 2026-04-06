@@ -1,93 +1,88 @@
 @extends('layouts.admin.main')
 @section('title', 'Dashboard')
 @section('content')
-<section class="section">
-  <div class="section-header">
-    <h1>Dashboard SIMKEU</h1>
-  </div>
-<div class="container-fluid">
+<div class="container">
 
-    <div class="card col-md-12">
-       
-        <div class="card-body"><div class="row">
+    <h3 class="mb-4">Dashboard Gudang</h3>
 
-<div class="col-md-4">
-<div class="card bg-success text-white">
-<div class="card-body">
-<h5>Cash In</h5>
-<h3>Rp {{ number_format($cashIn) }}</h3>
-</div>
-</div>
-</div>
+    <div class="row">
 
-<div class="col-md-4">
-<div class="card bg-danger text-white">
-<div class="card-body">
-<h5>Cash Out</h5>
-<h3>Rp {{ number_format($cashOut) }}</h3>
-</div>
-</div>
-</div>
+        <!-- Total Barang -->
+        <div class="col-md-3">
+            <div class="card bg-primary text-white p-3">
+                <h5>Total Barang</h5>
+                <h3>{{ $totalBarang }}</h3>
+            </div>
+        </div>
 
-<div class="col-md-4">
-<div class="card bg-primary text-white">
-<div class="card-body">
-<h5>Cash Flow</h5>
-<h3>Rp {{ number_format($cashFlow) }}</h3>
-</div>
-</div>
-</div>
+        <!-- Stok Masuk -->
+        <div class="col-md-3">
+            <div class="card bg-success text-white p-3">
+                <h5>Masuk Hari Ini</h5>
+                <h3>{{ $stokMasukHariIni }}</h3>
+            </div>
+        </div>
+
+        <!-- Stok Keluar -->
+        <div class="col-md-3">
+            <div class="card bg-danger text-white p-3">
+                <h5>Keluar Hari Ini</h5>
+                <h3>{{ $stokKeluarHariIni }}</h3>
+            </div>
+        </div>
+
+        <!-- Stok Menipis -->
+        <div class="col-md-3">
+            <div class="card bg-warning text-dark p-3">
+                <h5>Stok Menipis</h5>
+                <h3>{{ $stokMenipis }}</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Tabel -->
+    <div class="row mt-4">
+
+        <!-- Barang Terbaru -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>Barang Terbaru</h5>
+                <table class="table">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Stok</th>
+                    </tr>
+                    @foreach($barangTerbaru as $item)
+                    <tr>
+                        <td>{{ $item->nama_barang }}</td>
+                        <td>{{ $item->stok }}</td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+
+        <!-- Barang Hampir Habis -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h5>Stok Hampir Habis</h5>
+                <table class="table">
+                    <tr>
+                        <th>Nama</th>
+                        <th>Stok</th>
+                    </tr>
+                    @foreach($barangHampirHabis as $item)
+                    <tr>
+                        <td>{{ $item->nama_barang }}</td>
+                        <td class="text-danger">{{ $item->stok }}</td>
+                    </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+
+    </div>
 
 </div>
-<div class="row">
-
-<div class="col-md-4">
-<div class="card bg-info text-white">
-<div class="card-body">
-<h5>Total Transaksi</h5>
-<h3>{{ $totalTransaksi }}</h3>
-</div>
-</div>
-</div>
-
-<div class="col-md-4">
-<div class="card bg-warning text-white">
-<div class="card-body">
-<h5>Total Pembelian</h5>
-<h3>{{ $totalPembelian }}</h3>
-</div>
-</div>
-</div>
-
-</div>
-
-<canvas id="cashflowChart"></canvas>
-</div>
-</section>
 @endsection
-
-@push('scripts')<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
-<script>
-
-var ctx = document.getElementById('cashflowChart');
-
-new Chart(ctx,{
-type:'bar',
-data:{
-labels:['Cash In','Cash Out'],
-datasets:[{
-label:'Cash Flow',
-data:[
-{{ $cashIn }},
-{{ $cashOut }}
-]
-}]
-}
-});
-
-</script>
-
-</script>
-@endpush
