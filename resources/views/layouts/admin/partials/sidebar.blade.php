@@ -13,7 +13,10 @@
             <li class="menu-header" >Master Data</li>
                        <li class="active"><a class="nav-link" href="{{ route('barang.index') }}"><i class="far fa-square"></i>
                     <span>Barang</span></a></li>
-                      
+               <li class="active"><a class="nav-link" href="{{ route('mutasi.index') }}"><i class="far fa-square"></i>
+                    <span>Mutasi Barang</span></a></li>          
+                      <li class="active"><a class="nav-link" href="{{ route('gudang.index') }}"><i class="far fa-square"></i>
+                    <span>Gudang</span></a></li>   
                                                       
                     <li class="menu-header"><a class="nav-link" href="{{ route('user.index') }}">Admin</a></li>
                 
