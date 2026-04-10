@@ -23,7 +23,22 @@ class MutasiController extends Controller
 
         return view('mutasi.index', compact('mutasis'));
     }
+    public function keluar()
+    {
+      $data = Mutasi::where('tipe', 'keluar')
+            ->latest()
+            ->paginate(10);
 
+        return view('mutasi.keluar', compact('data'));
+    }
+    public function masuk()
+    {
+      $data = Mutasi::where('tipe', 'masuk')
+            ->latest()
+            ->paginate(10);
+
+        return view('mutasi.masuk', compact('data'));
+    }
     /**
      * FORM TAMBAH
      */

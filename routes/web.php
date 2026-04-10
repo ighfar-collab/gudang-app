@@ -6,6 +6,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StokController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('barang', BarangController::class);
     Route::resource('mutasi', MutasiController::class);
     Route::resource('gudang', GudangController::class);
+    Route::resource('stok', StokController::class);
     Route::post('users/{user}/reset-password',
     [UserController::class,'resetPassword']
 )->name('admin.users.reset-password');

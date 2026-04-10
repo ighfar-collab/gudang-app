@@ -17,6 +17,8 @@
                     <span>Mutasi Barang</span></a></li>          
                       <li class="active"><a class="nav-link" href="{{ route('gudang.index') }}"><i class="far fa-square"></i>
                     <span>Gudang</span></a></li>   
+                                   <li class="active"><a class="nav-link" href="{{ route('stok.index') }}"><i class="far fa-square"></i>
+                    <span>Stok</span></a></li>  
                                                       
                     <li class="menu-header"><a class="nav-link" href="{{ route('user.index') }}">Admin</a></li>
                 

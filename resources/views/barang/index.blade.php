@@ -26,7 +26,7 @@
         <tr>
             <td>{{ $b->kode_barang }}</td>
             <td>{{ $b->nama_barang }}</td>
-            <td>{{ $b->stok}}</td>
+            <td>{{ $b->satuan}}</td>
             <td>{{ $b->stok_minimum }}</td>
             <td>
                 <a href="{{ route('barang.edit', $b->id) }}" class="btn btn-warning btn-sm">Edit</a>

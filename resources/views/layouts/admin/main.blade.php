@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Aplikasi Monitoring Cargo</title>
+    <title>Aplikasi Monitoring Gudang</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset("assets/dashboard/bootstrap-4.3.1-dist/css/bootstrap.min.css") }}">
@@ -63,7 +63,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
-                        <h1>Aplikasi Monitoring Cargo</h1>
+                        <h1>Aplikasi Monitoring Gudang</h1>
                     </div>
 
                     <div class="section-body">

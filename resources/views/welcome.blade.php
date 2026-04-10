@@ -2,213 +2,113 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Monitoring Cargo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Monitoring Gudang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body {
             font-family: 'Segoe UI', sans-serif;
         }
-
-        body {
-            background: #f4f6f9;
-            color: #333;
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            background: #2d7df6;
+        .hero {
+            background: linear-gradient(120deg, #0d6efd, #0dcaf0);
             color: white;
-            padding: 15px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 100px 0;
         }
-
-        .navbar h2 {
-            font-size: 20px;
+        .feature-icon {
+            font-size: 40px;
+            color: #0d6efd;
         }
-
-        .navbar a {
-            text-decoration: none;
-            color: white;
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: 0.3s;
-        }
-
-        .navbar a:hover {
-            background: rgba(255,255,255,0.35);
-        }
-
-        /* ===== STATS ===== */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-            padding: 20px;
-        }
-
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .card h3 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .pending { color: #f39c12; }
-        .proses  { color: #3498db; }
-        .transit { color: #9b59b6; }
-        .sampai  { color: #2ecc71; }
-
-        /* ===== TABLE ===== */
-        .table-container {
-            background: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        table th, table td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        table th {
-            background: #f0f2f5;
-        }
-
-        .badge {
-            padding: 6px 14px;
-            border-radius: 20px;
-            color: white;
-            font-size: 13px;
-            display: inline-block;
-        }
-
-        .badge.pending { background: #f39c12; }
-        .badge.proses  { background: #3498db; }
-        .badge.transit { background: #9b59b6; }
-        .badge.sampai  { background: #2ecc71; }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            color: #777;
-            font-size: 14px;
-        }
-
-        @media (max-width: 600px) {
-            .navbar h2 {
-                font-size: 16px;
-            }
+        .section {
+            padding: 80px 0;
         }
     </style>
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<div class="navbar">
-    <h2>🚚 Cargo Monitoring System</h2>
- 
-    <a href="{{ route('login') }}">Login</a>
-    
-</div>
-
-<!-- ===== SUMMARY ===== -->
-<section class="stats">
-    <div class="card pending">
-        <h3>12</h3>
-        <p>Pending</p>
-    </div>
-    <div class="card proses">
-        <h3>8</h3>
-        <p>Proses</p>
-    </div>
-    <div class="card transit">
-        <h3>5</h3>
-        <p>Transit</p>
-    </div>
-    <div class="card sampai">
-        <h3>20</h3>
-        <p>Sampai</p>
+<!-- HERO -->
+<section class="hero text-center">
+    <div class="container">
+        <h1 class="fw-bold">Sistem Monitoring Gudang</h1>
+        <p class="lead">Pantau stok, distribusi, dan aktivitas gudang secara real-time</p>
+        <a href="/login" class="btn btn-light btn-lg mt-3">Masuk Sistem</a>
     </div>
 </section>
 
-<!-- ===== TABLE ===== -->
-<section class="table-container">
-    <h3>📦 Data Cargo</h3>
+<!-- FITUR -->
+<section class="section text-center">
+    <div class="container">
+        <h2 class="mb-5">Fitur Utama</h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>No Resi</th>
-                <th>Pengirim</th>
-                <th>Tujuan</th>
-                <th>Berat (Kg)</th>
-                <th>Vehicle</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>CRG-001</td>
-                <td>PT Maju Jaya</td>
-                <td>Banda Aceh</td>
-                <td>120</td>
-                <td>Truck Fuso</td>
-                <td><span class="badge pending">Pending</span></td>
-            </tr>
-            <tr>
-                <td>CRG-002</td>
-                <td>Andi</td>
-                <td>Medan</td>
-                <td>80</td>
-                <td>Pickup</td>
-                <td><span class="badge proses">Proses</span></td>
-            </tr>
-            <tr>
-                <td>CRG-003</td>
-                <td>Siti</td>
-                <td>Lhokseumawe</td>
-                <td>200</td>
-                <td>Truck Box</td>
-                <td><span class="badge transit">Transit</span></td>
-            </tr>
-            <tr>
-                <td>CRG-004</td>
-                <td>CV Amanah</td>
-                <td>Bireuen</td>
-                <td>60</td>
-                <td>Pickup</td>
-                <td><span class="badge sampai">Sampai</span></td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-icon">📦</div>
+                <h5>Manajemen Stok</h5>
+                <p>Kelola stok barang secara akurat dan real-time.</p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-icon">🚚</div>
+                <h5>Tracking Pengiriman</h5>
+                <p>Monitor pergerakan barang dari gudang ke tujuan.</p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-icon">📊</div>
+                <h5>Dashboard Analitik</h5>
+                <p>Lihat grafik aktivitas dan performa gudang.</p>
+            </div>
+        </div>
+    </div>
 </section>
 
-<footer>
-    © 2026 Cargo Monitoring System
+<!-- STATISTIK -->
+<section class="bg-light section text-center">
+    <div class="container">
+        <h2 class="mb-5">Statistik Sistem</h2>
+
+        <div class="row">
+            <div class="col-md-3">
+                <h3>1200+</h3>
+                <p>Barang</p>
+            </div>
+            <div class="col-md-3">
+                <h3>350+</h3>
+                <p>Pengiriman</p>
+            </div>
+            <div class="col-md-3">
+                <h3>50+</h3>
+                <p>Mitra</p>
+            </div>
+            <div class="col-md-3">
+                <h3>5 Gudang</h3>
+                <p>Aktif</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="section text-center">
+    <div class="container">
+        <h2 class="mb-5">Preview Dashboard</h2>
+        <img src="https://via.placeholder.com/800x400" class="img-fluid rounded shadow">
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="hero text-center">
+    <div class="container">
+        <h2>Siap Meningkatkan Manajemen Gudang?</h2>
+        <a href="/register" class="btn btn-light btn-lg mt-3">Mulai Sekarang</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center py-3 bg-dark text-white">
+    <p>© 2026 Sistem Monitoring Gudang | Laravel Project</p>
 </footer>
 
 </body>
