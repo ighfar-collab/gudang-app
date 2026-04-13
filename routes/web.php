@@ -7,6 +7,8 @@ use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\StokController;
+use App\Http\Controllers\SupplierController;
+ use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -49,9 +51,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('mutasi', MutasiController::class);
     Route::resource('gudang', GudangController::class);
     Route::resource('stok', StokController::class);
-    Route::post('users/{user}/reset-password',
-    [UserController::class,'resetPassword']
-)->name('admin.users.reset-password');
+    Route::resource('supplier', SupplierController::class);
+
+Route::get('/laporan/barang-masuk', [LaporanController::class, 'barangMasuk'])->name('laporan.masuk');
+Route::get('/laporan/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('laporan.keluar');
+
+
+Route::get('/barang-keluar', [MutasiController::class, 'keluar'])->name('mutasi.keluar');
+
+Route::get('/barang-masuk', [MutasiController::class, 'masuk'])->name('mutasi.masuk');
+    Route::post('users/{user}/reset-password', [UserController::class,'resetPassword'])->name('admin.users.reset-password');
 
    Route::put('/user/{user}/make-admin', [UserController::class, 'makeAdmin'])
         ->name('user.makeAdmin');

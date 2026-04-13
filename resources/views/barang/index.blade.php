@@ -16,7 +16,8 @@
     <table class="table table-bordered">
         <tr>
             <th>Kode</th>
-            <th>Nama</th>
+            <th>Nama Barang</th>
+                 <th>Nama Supplier</th>
             <th>Stok</th>
             <th>Stok Min</th>
             <th>Aksi</th>
@@ -26,6 +27,7 @@
         <tr>
             <td>{{ $b->kode_barang }}</td>
             <td>{{ $b->nama_barang }}</td>
+                     <td>{{ $b->supplier }}</td>
             <td>{{ $b->satuan}}</td>
             <td>{{ $b->stok_minimum }}</td>
             <td>

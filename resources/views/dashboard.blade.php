@@ -1,5 +1,6 @@
 @extends('layouts.admin.main')
 @section('title', 'Dashboard')
+
 @section('content')
 <div class="container">
 
@@ -56,7 +57,7 @@
                     @foreach($barangTerbaru as $item)
                     <tr>
                         <td>{{ $item->nama_barang }}</td>
-                        <td>{{ $item->stok }}</td>
+                        <td>{{ $item->jumlah }}</td>
                     </tr>
                     @endforeach
                 </table>
@@ -66,7 +67,7 @@
         <!-- Barang Hampir Habis -->
         <div class="col-md-6">
             <div class="card p-3">
-                <h5>Stok Hampir Habis</h5>
+                <h5>Barang Hampir Habis</h5>
                 <table class="table">
                     <tr>
                         <th>Nama</th>
@@ -74,8 +75,9 @@
                     </tr>
                     @foreach($barangHampirHabis as $item)
                     <tr>
+                        {{-- 🔥 PERBAIKAN: karena pakai JOIN --}}
                         <td>{{ $item->nama_barang }}</td>
-                        <td class="text-danger">{{ $item->stok }}</td>
+                        <td class="text-danger">{{ $item->jumlah }}</td>
                     </tr>
                     @endforeach
                 </table>
@@ -84,5 +86,66 @@
 
     </div>
 
+    <!-- 📊 GRAFIK AKTIVITAS -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card p-3">
+                <h5>Grafik Aktivitas Gudang ({{ $tahun }})</h5>
+                <canvas id="chartAktivitasGudang"></canvas>
+            </div>
+        </div>
+    </div>
+
 </div>
 @endsection
+
+@push('scripts')
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+var ctx = document.getElementById('chartAktivitasGudang').getContext('2d');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: @json($label),
+        datasets: [
+            {
+                label: 'Masuk',
+                data: @json($dataMasuk),
+                borderWidth: 2,
+                tension: 0.4
+            },
+            {
+                label: 'Keluar',
+                data: @json($dataKeluar),
+                borderWidth: 2,
+                tension: 0.4
+            },
+            {
+                label: 'Mutasi',
+                data: @json($dataMutasi),
+                borderWidth: 2,
+                tension: 0.4
+            }
+        ]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Aktivitas Gudang'
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+
+@endpush
