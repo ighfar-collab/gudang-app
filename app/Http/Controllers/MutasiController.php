@@ -53,71 +53,80 @@ class MutasiController extends Controller
     /**
      * SIMPAN DATA
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'barang_id' => 'required|exists:barangs,id',
-            'jumlah' => 'required|numeric|min:1',
-            'tipe' => 'required|in:masuk,keluar,transfer',
-            'tanggal' => 'required|date'
+
+
+public function store(Request $request)
+{
+    DB::transaction(function () use ($request) {
+
+        // simpan mutasi
+        $mutasi = Mutasi::create([
+            'barang_id'   => $request->barang_id,
+            'dari_gudang' => $request->dari_gudang,
+            'ke_gudang'   => $request->ke_gudang,
+            'jumlah'      => $request->jumlah,
+            'tipe'        => $request->tipe,
+            'tanggal'     => now(),
+            'keterangan'  => 'Mutasi Gudang'
         ]);
 
-        DB::beginTransaction();
+        // ====================================
+        // 📥 MASUK
+        // ====================================
+        if ($request->tipe == 'masuk') {
 
-        try {
-            $barang = Barang::findOrFail($request->barang_id);
-
-            // =========================
-            // LOGIC STOK
-            // =========================
-            if ($request->tipe == 'masuk') {
-
-                $barang->stok += $request->jumlah;
-
-            } elseif ($request->tipe == 'keluar') {
-
-                if ($barang->stok < $request->jumlah) {
-                    return back()->with('error','Stok tidak cukup!');
-                }
-
-                $barang->stok -= $request->jumlah;
-
-            } elseif ($request->tipe == 'transfer') {
-
-                if ($barang->stok < $request->jumlah) {
-                    return back()->with('error','Stok tidak cukup untuk transfer!');
-                }
-
-                // global stok tetap, tapi bisa dikembangkan stok per gudang
-            }
-
-            $barang->save();
-
-            // =========================
-            // SIMPAN MUTASI
-            // =========================
-            Mutasi::create([
+            $stok = Stok::firstOrCreate([
                 'barang_id' => $request->barang_id,
-                'dari_gudang' => $request->dari_gudang,
-                'ke_gudang' => $request->ke_gudang,
-                'jumlah' => $request->jumlah,
-                'tipe' => $request->tipe,
-                'tanggal' => $request->tanggal,
-                'keterangan' => $request->keterangan
+                'gudang_id' => $request->ke_gudang
             ]);
 
-            DB::commit();
-
-            return redirect()->route('mutasi.index')
-                ->with('success','Mutasi berhasil disimpan');
-
-        } catch (\Exception $e) {
-            DB::rollBack();
-
-            return back()->with('error','Terjadi kesalahan: '.$e->getMessage());
+            $stok->increment('jumlah', $request->jumlah);
         }
-    }
 
+        // ====================================
+        // 📤 KELUAR
+        // ====================================
+        if ($request->tipe == 'keluar') {
+
+            $stok = Stok::where('barang_id', $request->barang_id)
+                ->where('gudang_id', $request->dari_gudang)
+                ->first();
+
+            if (!$stok || $stok->jumlah < $request->jumlah) {
+                throw new \Exception('Stok tidak cukup');
+            }
+
+            $stok->decrement('jumlah', $request->jumlah);
+        }
+
+        // ====================================
+        // 🔄 MUTASI (TRANSFER)
+        // ====================================
+        if ($request->tipe == 'transfer') {
+
+            // kurangi gudang asal
+            $stokAsal = Stok::where('barang_id', $request->barang_id)
+                ->where('gudang_id', $request->dari_gudang)
+                ->first();
+
+            if (!$stokAsal || $stokAsal->jumlah < $request->jumlah) {
+                throw new \Exception('Stok asal tidak cukup');
+            }
+
+            $stokAsal->decrement('jumlah', $request->jumlah);
+
+            // tambah gudang tujuan
+            $stokTujuan = Stok::firstOrCreate([
+                'barang_id' => $request->barang_id,
+                'gudang_id' => $request->ke_gudang
+            ]);
+
+            $stokTujuan->increment('jumlah', $request->jumlah);
+        }
+    });
+
+    return back()->with('success', 'Data berhasil disimpan & stok terupdate');
+}
     /**
      * FORM EDIT
      */

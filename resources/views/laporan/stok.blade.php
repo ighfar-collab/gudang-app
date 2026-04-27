@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
 
-    <h3 class="mb-4">📥 Laporan Barang Masuk</h3>
+    <h3 class="mb-4">📥 Laporan Stok</h3>
 
     {{-- 🔍 FILTER --}}
     <form method="GET" class="row mb-3">
@@ -16,7 +16,6 @@
         </div>
         <div class="col-md-3">
             <button class="btn btn-primary">Filter</button>
-                  <button class="btn btn-success">Cetak</button>
         </div>
     </form>
 
@@ -27,22 +26,23 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Kode</th>
-                        <th>Barang</th>
-                        <th>Gudang</th>
-                        <th>Jumlah</th>
-                        <th>Tanggal</th>
+               <th>No</th>
+            <th>Barang</th>
+            <th>Gudang</th>
+            <th>Jumlah</th>
+                 <th>Tanggal</th>
                        
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($data as $item)
-                    <tr>
-                        <td>{{ $item->barang->kode_barang }}</td>
-                        <td>{{ $item->barang->nama_barang ?? '-' }}</td>
-                <td>{{ $item->gudangAsal->nama_gudang ?? '-' }}</td>
-                        <td>{{ $item->jumlah }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
+                   
+        @foreach($stoks as $no => $s)
+        <tr>
+            <td>{{ $no+1 }}</td>
+            <td>{{ $s->barang->nama_barang }}</td>
+            <td>{{ $s->gudang->nama_gudang }}</td>
+            <td>{{ $s->jumlah }}</td>
+                        <td>{{ \Carbon\Carbon::parse($s->created_at)->format('d-m-Y') }}</td>
                        
                     </tr>
                     @endforeach

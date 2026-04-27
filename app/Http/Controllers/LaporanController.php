@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mutasi;
 use App\Models\Barang;
 use App\Models\Gudang;
+use App\Models\Stok;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 class LaporanController extends Controller
@@ -52,5 +53,26 @@ public function barangKeluar(Request $request)
 
 
     return view('laporan.barang_keluar', compact('data'));
+}
+public function stok(Request $request)
+{
+$stoks = Stok::with(['barang','gudang'])
+       ->orderBy('stoks.created_at', 'desc')
+            ->latest()
+            ->paginate(10);
+
+
+
+    // 🔍 FILTER TANGGAL
+    if ($request->tanggal_awal && $request->tanggal_akhir) {
+        $query->whereBetween('mutasis.tanggal', [
+            $request->tanggal_awal,
+            $request->tanggal_akhir
+        ]);
+    }
+
+
+
+    return view('laporan.stok', compact('stoks'));
 }
 }

@@ -15,6 +15,7 @@
 
 <table class="table table-bordered">
     <tr>
+           <th>Id</th>
         <th>Nama Gudang</th>
         <th>Lokasi</th>
         <th>Aksi</th>
@@ -22,6 +23,7 @@
 
     @foreach($gudangs as $g)
     <tr>
+            <td>{{ $g->id }}</td>
         <td>{{ $g->nama_gudang }}</td>
         <td>{{ $g->lokasi ?? '-' }}</td>
         <td>

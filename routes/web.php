@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/laporan/barang-masuk', [LaporanController::class, 'barangMasuk'])->name('laporan.masuk');
 Route::get('/laporan/barang-keluar', [LaporanController::class, 'barangKeluar'])->name('laporan.keluar');
+Route::get('/laporan/stok', [LaporanController::class, 'stok'])->name('laporan.stok');
 
 
 Route::get('/barang-keluar', [MutasiController::class, 'keluar'])->name('mutasi.keluar');

@@ -18,6 +18,17 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
+    <form method="GET" class="row mb-3">
+        <div class="col-md-3">
+            <input type="date" name="tanggal_awal" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <input type="date" name="tanggal_akhir" class="form-control">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary">Filter</button>
+        </div>
+    </form>
     <table class="table table-bordered">
         <thead class="table-light">
             <tr>
