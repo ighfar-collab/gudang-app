@@ -2,8 +2,6 @@
 
 A web-based warehouse management system designed to manage inventory, track stock movement, and generate reports efficiently.
 
----
-
 ## ✨ Key Features
 
 - 📥 **Goods In (Barang Masuk)**
@@ -15,16 +13,13 @@ A web-based warehouse management system designed to manage inventory, track stoc
 - 📦 **Inventory Management**
   Monitor stock levels in real-time and avoid stock shortages.
 
-- 🔍 **Search & Filter Items**
-  Quickly find items using advanced filtering.
-
 - 📊 **Stock Reports**
   Generate daily, monthly, and yearly inventory reports.
 
 - 🔐 **Authentication System**
   Secure login and access control for users.
 
----
+
 
 ## 🧠 Technical Highlights
 
@@ -70,44 +65,36 @@ This system is built to help businesses:
 4. System updates stock automatically  
 5. Reports generated dynamically  
 
----
 
 ## ⚙️ Installation Guide
 
-```bash
-git clone https://github.com/ighfar-collab/simkeu.git
+git clone https://github.com/ighfar-collab/gudang-app.git
 cd simkeu
 composer install
 cp .env.example .env
 php artisan key:generate
-```
+
 
 ### 🗄️ Database Setup
 
-```bash
 php artisan migrate
 php artisan db:seed
-```
+
 
 ### ▶️ Run Application
 
-```bash
 php artisan serve
-```
-
----
 
 ## 🔐 Demo
 
-🔗 https://simkeu.ighfarhost.com  
+🔗 https://gudang.ighfarhost.com  
 
 ### Demo Account
 
 - **Admin**
-  - Email: admin@mail.com  
-  - Password: password123  
+  - Email: superadmin@admin.com  
+  - Password: mmmmpppp123  
 
----
 
 ## 🚀 Future Development
 
@@ -117,7 +104,7 @@ php artisan serve
 - 🔐 Role & permission management  
 - 📦 Multi-warehouse support  
 
----
+
 
 ## 👨‍💻 Author
 
